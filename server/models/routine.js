@@ -2,18 +2,18 @@ const conn = require('./mysql_connection');
 
 const model = {
     getAll(cb){
-        conn.query("SELECT * FROM Fitness_Persons", (err,data) => {
+        conn.query("SELECT * FROM Fitness_Routines", (err,data) => {
             cb(err,data);
         });
     },
     get(id,cb){
-        conn.query("SELECT * FROM Fitness_Persons WHERE Id=?", (err,data) => {
+        conn.query("SELECT * FROM Fitness_Routines WHERE Id=?", (err,data) => {
             cb(err,data[0]);
         });
     },
     add(input,cb){
-        conn.query("INSERT INTO Fitness_Persons (created_at,password,firstName,lastName,birthday) VALUES(?)",
-            [[new Date(),input.password,input.firstName,input.lastName,input.birthday]],
+        conn.query("INSERT INTO Fitness_Routines (created_at,routineName,routineDescription) VALUES(?)",
+            [[new Date(),input.routineName,input.routineDescription]],
             (err,data) => {
                 if(err){
                     cb(err);
