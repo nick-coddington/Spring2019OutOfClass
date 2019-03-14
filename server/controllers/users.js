@@ -18,6 +18,14 @@ app.get("/:id", (req,res) =>{
     });
 
 });
+app.get("/deleteuser/:id", (req,res) =>{
+
+    user.get(req.params.id, (err,data) =>{
+        if(err) throw err;
+        res.send(data);
+    });
+
+});
 app.post("/", (req,res) =>{
     
     console.log(req.body);

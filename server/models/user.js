@@ -11,6 +11,11 @@ const model = {
             cb(err,data[0]);
         });
     },
+    deleteById(id,cb){
+        conn.query(`DELETE FROM Fitness_Persons WHERE Id= ?`, (err,data) => {
+            cb(err,data[0]);
+        });
+    },
     add(input,cb){
         conn.query("INSERT INTO Fitness_Persons (created_at,password,firstName,lastName,birthday) VALUES(?)",
             [[new Date(),input.password,input.firstName,input.lastName,input.birthday]],
