@@ -7,13 +7,13 @@ const model = {
         });
     },
     get(id,cb){
-        conn.query("SELECT * FROM Fitness_Persons WHERE Id=?", (err,data) => {
+        conn.query("SELECT * FROM Fitness_Persons WHERE person_id=?", id,(err,data) => {
             cb(err,data[0]);
         });
     },
     deleteById(id,cb){
-        conn.query(`DELETE FROM Fitness_Persons WHERE Id= ?`, (err,data) => {
-            cb(err,data[0]);
+        conn.query("DELETE FROM Fitness_Persons WHERE person_id=?", id, (err,data) => {
+            cb(err,data);
         });
     },
     add(input,cb){

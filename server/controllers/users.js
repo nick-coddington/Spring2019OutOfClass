@@ -20,7 +20,7 @@ app.get("/:id", (req,res) =>{
 });
 app.get("/deleteuser/:id", (req,res) =>{
 
-    user.get(req.params.id, (err,data) =>{
+    user.deleteById(req.params.id, (err,data) =>{
         if(err) throw err;
         res.send(data);
     });
