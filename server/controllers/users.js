@@ -26,6 +26,14 @@ app.get("/deleteuser/:id", (req,res) =>{
     });
 
 });
+app.post("/changePassword/", (req,res) =>{
+    
+    console.log(req.body);
+    user.changePass(req.body, (err,data) =>{
+        if(err) throw err;
+        res.send(data);
+    });
+});
 app.post("/", (req,res) =>{
     
     console.log(req.body);

@@ -1,5 +1,5 @@
 const express = require('express');
-const user   =require('../models/contactMethod');
+const user    =require('../models/contactMethod');
 const app     =express.Router();
 
 app.get("/", (req,res) =>{
@@ -16,7 +16,13 @@ app.get("/:id", (req,res) =>{
         if(err) throw err;
         res.send(data);
     });
+});
+app.get("/deleteuser/:id", (req,res) =>{
 
+    user.deleteById(req.params.id, (err,data) =>{
+        if(err) throw err;
+        res.send(data);
+    });
 });
 app.post("/", (req,res) =>{
     
@@ -25,7 +31,6 @@ app.post("/", (req,res) =>{
         if(err) throw err;
         res.send(data);
     });
-
 });
 
 module.exports = app;
