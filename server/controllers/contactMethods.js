@@ -24,6 +24,13 @@ app.get("/deleteuser/:id", (req,res) =>{
         res.send(data);
     });
 });
+app.post("/updatehandle/", (req,res) => {
+    console.log(req.body);
+    user.updatehandle(req.body, (err,data) => {
+        if(err) throw err;
+        res.send(data);
+    })
+})
 app.post("/", (req,res) =>{
     
     console.log(req.body);

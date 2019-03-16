@@ -38,7 +38,7 @@ const model = {
     //creates a user
     add(input,cb){
         if(input.password.length < 8){
-            cb(Error('Passwordc must be at least 8 characters'))
+            cb(Error('Password must be at least 8 characters'))
         }
         conn.query("INSERT INTO Fitness_Persons (created_at,userName,password,firstName,lastName,birthday) VALUES(?)",
             [[new Date(),input.userName,input.password,input.firstName,input.lastName,input.birthday]],

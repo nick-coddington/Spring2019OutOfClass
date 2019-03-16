@@ -18,7 +18,6 @@ app.get('/', (req,res) => res.send("Welcome to the Tiger's Den"));
 app.use('/users', users);
 app.use('/workouts',workouts);
 app.use('/exercises',exercises);
-app.use('/routineExercises',routineExercises);
 app.use('/routines', routines);
 app.use('/routineCreators',routineCreator);
 app.use('/contactMethods', contactMethods);
