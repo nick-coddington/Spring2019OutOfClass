@@ -2,6 +2,7 @@ const express = require('express');
 const user   =require('../models/routine');
 const app     =express.Router();
 
+//get all available routines
 app.get("/", (req,res) =>{
 
     user.getAll((err,data) =>{
@@ -10,6 +11,7 @@ app.get("/", (req,res) =>{
     });
 
 });
+//get a specific routine by id
 app.get("/:id", (req,res) =>{
 
     user.get(req.params.id, (err,data) =>{
@@ -18,6 +20,16 @@ app.get("/:id", (req,res) =>{
     });
 
 });
+//delete a routine by name
+app.post("/deleteroutine", (req,res) => {
+
+    console.log(req.body);
+    user.deleteRoutine(req.body, (err,data) => {
+        if(err) throw err;
+        res.send(data);
+    })
+})
+//add a new routine
 app.post("/", (req,res) =>{
     
     console.log(req.body);

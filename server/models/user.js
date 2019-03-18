@@ -1,6 +1,18 @@
 const conn = require('./mysql_connection');
 
 const model = {
+    /*login
+    login(input,cb){
+        conn.query("SELECT * FROM Fitness_Persons WHERE userName=? AND password=?", [input.userName,input.password], (err,data) =>{
+            if(err){
+                cb(err);
+                return;
+            }
+            model.get(data.insertId, (err,data) => {
+                cb(err,data);
+            })
+        })
+    },*/
     //get all users
     getAll(cb){
         conn.query("SELECT * FROM Fitness_Persons", (err,data) => {

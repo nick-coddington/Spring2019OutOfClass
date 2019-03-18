@@ -2,6 +2,13 @@ const express = require('express');
 const user   =require('../models/user');
 const app     =express.Router();
 
+app.post("/login", (req,res) => {
+    console.log(req.body);
+    user.login(req.body, (err,data) => {
+        if(err) throw err;
+        res.send(data);
+    });
+});
 app.get("/", (req,res) =>{
 
     user.getAll((err,data) =>{

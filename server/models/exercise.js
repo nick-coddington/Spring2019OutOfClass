@@ -34,7 +34,7 @@ const model = {
     },
     //change the default sets by exercise name
     changeSets(input,cb){
-        conn.query("UPDATE Fitness_Exercises SET defaultSets=? WHERE exerciseNAme=?", [input.defaultSets, input.exerciseName],
+        conn.query("UPDATE Fitness_Exercises SET defaultSets=? WHERE exerciseName=?", [input.defaultSets, input.exerciseName],
         (err,data) => {
             if(err) {
                 cb(err);

@@ -3,7 +3,6 @@ const path    = require('path');
 const users   = require('./controllers/users');
 const workouts = require('./controllers/workouts');
 const exercises = require('./controllers/exercises');
-const routineExercises = require('./controllers/routineExercises');
 const routines = require('./controllers/routines');
 const routineCreator = require('./controllers/routineCreators');
 const contactMethods = require('./controllers/contactMethods');
