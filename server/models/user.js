@@ -25,7 +25,7 @@ const model = {
             cb(err,data[0]);
         });
     },
-    //delete by user
+    //deletes a user (cascades)
     deleteById(id,cb){
         conn.query("DELETE FROM Fitness_Persons WHERE person_id=?", id, (err,data) => {
             cb(err,data);

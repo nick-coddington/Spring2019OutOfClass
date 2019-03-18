@@ -20,7 +20,7 @@ app.get("/:id", (req,res) =>{
     });
 
 });
-//delete a routine by name
+//delete a routine by name(cascades)
 app.post("/deleteroutine", (req,res) => {
 
     console.log(req.body);

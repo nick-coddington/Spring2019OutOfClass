@@ -1,6 +1,6 @@
-const express = require('express');
-const user   =require('../models/user');
-const app     =express.Router();
+const express   =require('express');
+const user      =require('../models/user');
+const app       =express.Router();
 
 app.post("/login", (req,res) => {
     console.log(req.body);

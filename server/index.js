@@ -1,11 +1,11 @@
-const express = require('express');
-const path    = require('path');
-const users   = require('./controllers/users');
-const workouts = require('./controllers/workouts');
-const exercises = require('./controllers/exercises');
-const routines = require('./controllers/routines');
-const routineCreator = require('./controllers/routineCreators');
-const contactMethods = require('./controllers/contactMethods');
+const express           = require('express');
+const path              = require('path');
+const users             = require('./controllers/users');
+const workouts          = require('./controllers/workouts');
+const exercises         = require('./controllers/exercises');
+const routines          = require('./controllers/routines');
+const contactMethods    = require('./controllers/contactMethods');
+const routineExercises  = require('./controllers/routineExercises');
 
 const app     = express();
 const port    = 3000;
@@ -18,8 +18,8 @@ app.use('/users', users);
 app.use('/workouts',workouts);
 app.use('/exercises',exercises);
 app.use('/routines', routines);
-app.use('/routineCreators',routineCreator);
 app.use('/contactMethods', contactMethods);
+app.use('/routineExercises',routineExercises);
 
 
 
