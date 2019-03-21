@@ -1,18 +1,9 @@
-const conn = require('./mysql_connection');
+const conn   = require('./mysql_connection');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const model = {
-    /*login
-    login(input,cb){
-        conn.query("SELECT * FROM Fitness_Persons WHERE userName=? AND password=?", [input.userName,input.password], (err,data) =>{
-            if(err){
-                cb(err);
-                return;
-            }
-            model.get(data.insertId, (err,data) => {
-                cb(err,data);
-            })
-        })
-    },*/
+
     //get all users
     getAll(cb){
         conn.query("SELECT * FROM Fitness_Persons", (err,data) => {
@@ -31,7 +22,7 @@ const model = {
             cb(err,data);
         });
     },
-    //updates passsword for user
+    //updates passsword for user after authentication this would be used
     changePass(input,cb){
         if(input.password < 8){
             cb(Error('Password must be at least 8 characters'))
@@ -47,23 +38,38 @@ const model = {
             });
         });
     },
-    //creates a user
+    //creates a user with a hashed password
     add(input,cb){
         if(input.password.length < 8){
             cb(Error('Password must be at least 8 characters'))
         }
-        conn.query("INSERT INTO Fitness_Persons (created_at,userName,password,firstName,lastName,birthday) VALUES(?)",
-            [[new Date(),input.userName,input.password,input.firstName,input.lastName,input.birthday]],
+        bcrypt.hash(input.password, saltRounds, function(err,hash){
+            conn.query("INSERT INTO Fitness_Persons (created_at,userName,password,firstName,lastName,birthday) VALUES(?)",
+            [[new Date(),input.userName,hash,input.firstName,input.lastName,input.birthday]],
             (err,data) => {
-                if(err){
-                    cb(err);
-                    return;
+                    if(err){
+                        cb(err);
+                        return;
+                    }
+                    model.get(data.insertId, (err,data) => {
+                        cb(err,data);
+                    })
                 }
-                model.get(data.insertId, (err,data) => {
+            );
+        })
+    },
+    //authentication 
+    login(input,cb){
+        conn.query("SELECT password FROM Fitness_Persons WHERE userName=?", [input.userName], 
+        (err,data) => {
+            if(err){
+                cb(err);
+                return;
+            }
+            bcrypt.compare(input.password, data[0].password, (err,data) => {
                     cb(err,data);
                 })
-            }
-        );
+        })
     }
-};
+}
 module.exports = model; 
