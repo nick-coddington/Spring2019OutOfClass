@@ -6,6 +6,7 @@ const exercises         = require('./controllers/exercises');
 const routines          = require('./controllers/routines');
 const contactMethods    = require('./controllers/contactMethods');
 const routineExercises  = require('./controllers/routineExercises');
+const userRelationships = require('./controllers/userRelationships')
 
 const app     = express();
 const port    = 3000;
@@ -20,6 +21,7 @@ app.use('/exercises',exercises);
 app.use('/routines', routines);
 app.use('/contactMethods', contactMethods);
 app.use('/routineExercises',routineExercises);
+app.use('/userRelationships', userRelationships);
 
 
 
