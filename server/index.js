@@ -23,6 +23,11 @@ app.use('/contactMethods', contactMethods);
 app.use('/routineExercises',routineExercises);
 app.use('/userRelationships', userRelationships);
 
+app.use(function (err, req, res, next){
+    console.error(err.stack)
+    res.status(500).send({msg: err.message})
+})
+
 
 
 app.listen(port, () => console.log(`Example app http://localhost:${port}!`));

@@ -5,71 +5,62 @@ const saltRounds = 10;
 const model = {
 
     //get all users
-    getAll(cb){
-        conn.query("SELECT * FROM Fitness_Persons", (err,data) => {
-            cb(err,data);
-        });
+    async getAll(){
+        return await conn.query("SELECT * FROM Fitness_Persons");
     },
     //select by user id
-    get(id,cb){
-        conn.query("SELECT * FROM Fitness_Persons WHERE person_id=?", id,(err,data) => {
-            cb(err,data[0]);
-        });
+    async get(id){
+        const data = await conn.query("SELECT * FROM Fitness_Persons WHERE person_id=?", id);
+        if(!data) {
+            throw Error("User not found")
+        }
+        return data[0];
     },
     //deletes a user (cascades)
-    deleteById(id,cb){
-        conn.query("DELETE FROM Fitness_Persons WHERE person_id=?", id, (err,data) => {
-            cb(err,data);
-        });
-    },
-    //updates passsword for user after authentication this would be used
-    changePass(input,cb){
-        if(input.password < 8){
-            cb(Error('Password must be at least 8 characters'))
-        }
-        conn.query("UPDATE Fitness_Persons SET password=? WHERE userName =?",[input.password,input.userName],
-        (err,data) => {
-            if(err) {
-                cb(err);
-                return; 
-            }
-            model.get(data.insertId, (err,data) =>{
-                cb(err,data);
-            });
-        });
+    async deleteById(id) {
+        return await conn.query("DELETE FROM Fitness_Persons WHERE person_id=?", id);
     },
     //creates a user with a hashed password
-    add(input,cb){
-        if(input.password.length < 8){
-            cb(Error('Password must be at least 8 characters'))
+    async add(input){
+        if(!input.password) {
+            throw Error('Password is Required.')
         }
-        bcrypt.hash(input.password, saltRounds, function(err,hash){
-            conn.query("INSERT INTO Fitness_Persons (created_at,userName,password,firstName,lastName,birthday) VALUES(?)",
-            [[new Date(),input.userName,hash,input.firstName,input.lastName,input.birthday]],
-            (err,data) => {
-                    if(err){
-                        cb(err);
-                        return;
-                    }
-                    model.get(data.insertId, (err,data) => {
-                        cb(err,data);
-                    })
-                }
+        if(input.password.length < 8){
+            throw Error('Password must be at least 8 characters');
+        }
+        const hashedPassword = await bcrypt.hash(input.password, saltRounds)
+        const data = await conn.query(
+            "INSERT INTO Fitness_Persons (created_at,userName,password,firstName,lastName,birthday) VALUES(?)",
+            [[new Date(),input.userName,hashedPassword,input.firstName,input.lastName,input.birthday]]
             );
-        })
+            return await model.get(data.insertId);
     },
     //authentication 
-    login(input,cb){
-        conn.query("SELECT password FROM Fitness_Persons WHERE userName=?", [input.userName], 
-        (err,data) => {
-            if(err){
-                cb(err);
-                return;
-            }
-            bcrypt.compare(input.password, data[0].password, (err,data) => {
-                    cb(err,data);
-                })
-        })
+    async login(userName, password) {
+        const data = await conn.query(`SELECT * FROM Fitness_Persons WHERE userName=?`, userName);
+        if(data.length == 0) {
+            throw Error('User not found')
+        }
+        const x = await bcrypt.compare(password, data[0].password);
+        if(x) {
+            return data[0];
+        } else {
+            throw Error('Wrong Password')
+        }
+    },
+    //updates passsword for user after authentication this would be used
+    async changePassword(userName, oldPassword, newPassword) {
+        const data = await conn.query(`SELECT * FROM Fitness_Persons WHERE userName=?`, userName);
+        if(data.length == 0) {
+            throw Error('User not Found')
+        }
+        if(data[0].password == "" || await bcrypt.compare(oldPassword, data[0].password)) {
+            const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+            await conn.query(`UPDATE Fitness_Persons SET password=? WHERE userName=?`, [hashedPassword, userName]);
+        return {status: "success", msg: "Password Successfully Changed"};
+        } else {
+            throw Error('Wrong Password')
+        }
     }
-}
+};
 module.exports = model; 
