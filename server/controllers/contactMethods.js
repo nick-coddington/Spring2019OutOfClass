@@ -2,42 +2,35 @@ const express = require('express');
 const user    =require('../models/contactMethod');
 const app     =express.Router();
 
-app.get("/", (req,res) =>{
 
-    user.getAll((err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
-
+app.get("/", (req, res, next) =>{
+    user.getAll()
+    .then(x => res.send(x))
+    .catch(next)
 });
-app.get("/:id", (req,res) =>{
 
-    user.get(req.params.id, (err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
+app.get("/:id", (req, res, next) =>{
+    user.get(req.params.id)
+    .then(x => res.send(x))
+    .catch(next)
 });
-app.get("/deleteuser/:id", (req,res) =>{
 
-    user.deleteById(req.params.id, (err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
+app.get("/deleteuser/:id", (req, res, next) =>{
+    user.deleteById(req.params.id)
+    .then(x => res.send(x))
+    .catch(next)
 });
-app.post("/updatehandle/", (req,res) => {
-    console.log(req.body);
-    user.updatehandle(req.body, (err,data) => {
-        if(err) throw err;
-        res.send(data);
-    })
-})
-app.post("/", (req,res) =>{
-    
-    console.log(req.body);
-    user.add(req.body, (err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
+
+app.post("/updatehandle", (req, res, next) => {
+    user.updatehandle(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+});
+
+app.post("/", (req, res, next) =>{
+    user.add(req.body)
+    .then(x => res.send(X))
+    .catch(next)
 });
 
 module.exports = app;
