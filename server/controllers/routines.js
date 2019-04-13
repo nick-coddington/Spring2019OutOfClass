@@ -3,41 +3,31 @@ const user   =require('../models/routine');
 const app     =express.Router();
 
 //get all available routines
-app.get("/", (req,res) =>{
-
-    user.getAll((err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
-
+app.get("/", async (req, res, next) =>{
+    user.getAll()
+    .then(x => res.send(x))
+    .catch(next)
 });
+
 //get a specific routine by id
-app.get("/:id", (req,res) =>{
-
-    user.get(req.params.id, (err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
-
+app.get("/:id", (req, res, next) =>{
+    user.get(req.params.id)
+    .then(x => res.send(x))
+    .catch(next)
 });
+
 //delete a routine by name(cascades)
-app.post("/deleteroutine", (req,res) => {
+app.get("/deleteroutine/:id", (req, res, next) => {
+    user.deleteRoutine(req.params.id)
+    .then(x => res.send(x))
+    .catch(next)
+});
 
-    console.log(req.body);
-    user.deleteRoutine(req.body, (err,data) => {
-        if(err) throw err;
-        res.send(data);
-    })
-})
 //add a new routine
-app.post("/", (req,res) =>{
-    
-    console.log(req.body);
-    user.add(req.body, (err,data) =>{
-        if(err) throw err;
-        res.send(data);
-    });
-
+app.post("/", (req, res, next) =>{
+    user.add(req.body)
+    .then(x => res.send(x))
+    .catch(next)
 });
 
 module.exports = app;

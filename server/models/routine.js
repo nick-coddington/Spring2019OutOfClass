@@ -2,37 +2,26 @@ const conn = require('./mysql_connection');
 
 const model = {
     //get all available routines
-    getAll(cb){
-        conn.query("SELECT * FROM Fitness_Routines", (err,data) => {
-            cb(err,data);
-        });
+    async getAll(){
+        return await conn.query("SELECT * FROM Fitness_Routines");
     },
-    //get a specific routine by id
-    get(id,cb){
-        conn.query("SELECT routineName,routineDescription,firstName,lastName FROM Fitness_Routines join Fitness_Persons WHERE Fitness_Persons_person_id=?", id, (err,data) => {
-            cb(err,data[0]);
-        });
+    //get routines by a specific person 
+    async get(id){
+        const data = await conn.query("SELECT routineName,routineDescription,firstName,lastName FROM Fitness_Routines join Fitness_Persons WHERE Fitness_Persons_person_id=?", id);
+        if(!data) {
+            throw Error('Routine Not Found')
+        }
+        return data[0];
     },
-    //delete a routine by name (cascades)
-    deleteRoutine(input, cb){
-        conn.query("DELETE FROM Fitness_Routines WHERE routine_id=?", input.routine_id, (err,data) => {
-            cb(err,data);
-        })
+    //delete a routine by id (cascades)
+    async deleteRoutine(id){
+        return await conn.query("DELETE FROM Fitness_Routines WHERE routine_id=?", id);
     },
     //add a new routine
-    add(input,cb){
-        conn.query("INSERT INTO Fitness_Routines (created_at,routineName,routineDescription,Fitness_Persons_person_id) VALUES(?)",
-            [[new Date(),input.routineName,input.routineDescription,input.Fitness_Persons_person_id]],
-            (err,data) => {
-                if(err){
-                    cb(err);
-                    return;
-                }
-                model.get(data.insertId, (err,data) => {
-                    cb(err,data);
-                })
-            }
-        );
+    async add(input){
+        const data = await conn.query("INSERT INTO Fitness_Routines (created_at,routineName,routineDescription,Fitness_Persons_person_id) VALUES(?)",
+            [[new Date(),input.routineName,input.routineDescription,input.Fitness_Persons_person_id]]);
+        return await model.get(data.insertId);
     }
 };
 module.exports = model; 

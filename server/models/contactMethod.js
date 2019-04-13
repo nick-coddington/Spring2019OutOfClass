@@ -3,13 +3,13 @@ const conn = require('./mysql_connection');
 const model = {
     //get all contacts
     async getAll(){
-        return await conn.query("SELECT * FROM Fitness_ContactMethods")
+        return await conn.query("SELECT * FROM Fitness_ContactMethods");
     },
     //get a contact by id 
     async get(id) {
         const data = await conn.query("SELECT * FROM Fitness_ContactMethods WHERE contact_id=?", id);
         if(!data) {
-            throw Error('User not found')
+            throw Error('User not found');
         }
         return data[0]
     },
@@ -19,10 +19,14 @@ const model = {
     },
     //updating the contact handle using the person id and type of value incase there is more then one contact for a user
     async updatehandle(input) {
-        await conn.query(
+        const data = await conn.query(
             "UPDATE Fitness_ContactMethods SET contact_value=? WHERE Fitness_Persons_person_id=? AND contact_type=?",[input.contact_value,input.Fitness_Persons_person_id,input.contact_type]
             );
-        return await model.get(data.insertId);
+        if(data.contact_value){
+            return {staus: "success", msg: "You have Successfully updated your contact info!"}
+        } else {
+            throw Error('Contact Info was not updated.')
+        }
     },
     //add a new contact
     async add(input) {

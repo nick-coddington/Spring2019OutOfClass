@@ -23,14 +23,14 @@ const model = {
 
     //change the default reps by exercise name
     async changeReps(input){
-        const data = await conn.query("UPDATE Fitness_Exercises SET defaultReps=? WHERE exerciseName=?", [input.defaultReps, input.exerciseName]
+        const data = await conn.query("UPDATE Fitness_Exercises SET defaultReps=? WHERE exercise_id=?", [input.defaultReps, input.exercise_id]
         );
         return await model.get(data.insertId);
     },
 
     //change the default sets by exercise name
     async changeSets(input){
-        const data = await conn.query("UPDATE Fitness_Exercises SET defaultSets=? WHERE exerciseName=?", [input.defaultSets, input.exerciseName]
+        const data = await conn.query("UPDATE Fitness_Exercises SET defaultSets=? WHERE exercise_id=?", [input.defaultSets, input.exercise_id]
         );
         return await model.get(data.insertId);
     },

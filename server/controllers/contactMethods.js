@@ -29,7 +29,7 @@ app.post("/updatehandle", (req, res, next) => {
 
 app.post("/", (req, res, next) =>{
     user.add(req.body)
-    .then(x => res.send(X))
+    .then(x => res.send(x))
     .catch(next)
 });
 
