@@ -3,7 +3,7 @@
     <h1 v-if="Globals.user"> {{Globals.user.name}}'s  Friends List</h1>
     <ul>
         <li v-for="friend in friends" :key="friend.id">
-            {{friend.firstName}}
+            {{friend.firstName}} {{friend.lastName}}
         </li>
     </ul>
 </div>
