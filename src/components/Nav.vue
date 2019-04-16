@@ -36,6 +36,18 @@
                     active-class="active">Workouts
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"
+                    to="/Routines"
+                    active-class="active">Routines
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link"
+                    to="/Exercises"
+                    active-class="active">Exercises
+                    </router-link>
+                </li>
             </ul>
         </div>
     </nav>

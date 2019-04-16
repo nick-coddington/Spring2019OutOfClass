@@ -2,6 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Friends from './views/Friends.vue';
+import Workouts from './views/Workouts.vue';
+import Routines from './views/Routines.vue';
+import Exercises from './views/Exercises.vue';
 
 Vue.use(Router);
 
@@ -18,6 +21,21 @@ export default new Router({
       path: '/friends',
       name: 'friends',
       component: Friends,
+    },
+    {
+      path: '/workouts',
+      name: 'workouts',
+      component: Workouts,
+    },
+    {
+      path: '/routines',
+      name: 'routines',
+      component: Routines,
+    },
+    {
+      path: '/exercises',
+      name: 'exercises',
+      component: Exercises,
     },
     {
       path: '/about',
