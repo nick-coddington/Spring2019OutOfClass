@@ -22,34 +22,66 @@
                 <div class="form-group">
                   <label for="Username">Username</label>
                   <input type="text" v-model="data.userName"
-                    class="form-control" name="Username" id="Username" aria-describedby="helpUsername" placeholder="Username">
-                  <small id="helpUsername" class="form-text text-muted">Select a username</small>
+                    class="form-control"
+                    name="Username"
+                    id="Username"
+                    aria-describedby="helpUsername"
+                    placeholder="Username">
+                  <small id="helpUsername"
+                  class="form-text text-muted">Select a username</small>
                 </div>
                 <div class="form-group">
                   <label for="FirstName">First Name</label>
                   <input type="text" v-model="data.firstName"
-                    class="form-control" name="FirstName" id="FirstName" aria-describedby="helpFirstName" placeholder="First Name">
-                  <small id="helpFirstName" class="form-text text-muted">If you have a middle name you can enter that too</small>
+                    class="form-control"
+                    name="FirstName"
+                    id="FirstName"
+                    aria-describedby="helpFirstName"
+                    placeholder="First Name">
+                  <small id="helpFirstName"
+                  class="form-text text-muted">If you have a middle name enter here</small>
                 </div>
                 <div class="form-group">
                   <label for="LastName">Last Name</label>
                   <input type="text" v-model="data.lastName"
-                    class="form-control" name="LastName" id="LastName" aria-describedby="helpLastName" placeholder="Last Name">
+                    class="form-control"
+                    name="LastName"
+                    id="LastName"
+                    aria-describedby="helpLastName"
+                    placeholder="Last Name">
                   <small id="helpLastName" class="form-text text-muted">Sir Name</small>
                 </div>
                 <div class="form-group">
                   <label for="Password">Password</label>
                   <input type="password" v-model="data.password"
-                    class="form-control" name="Password" id="Password" placeholder="Password">
+                    class="form-control"
+                    name="Password"
+                    id="Password"
+                    placeholder="Password">
                 </div>
                 <div class="form-group">
                   <label for="Birthday">Birthday</label>
                   <input type="date" v-model="data.birthday"
-                    class="form-control" name="Birthday" id="Birthday" aria-describedby="helpBirthday" placeholder="Your Birthday">
-                  <small id="helpBirthday" class="form-text text-muted">Please include the year</small>
+                    class="form-control"
+                    name="Birthday"
+                    id="Birthday"
+                    aria-describedby="helpBirthday"
+                    placeholder="Your Birthday">
+                  <small id="helpBirthday"
+                  class="form-text text-muted">Please include the year</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card border-success" v-if="newUser">
+        <div class="card-body">
+          <h4 class="card-title">Congrats! You've Registered</h4>
+          <p class="card-text">
+            {{newUser.firstName}} {{newUser.lastName}}
+          </p>
         </div>
       </div>
     </div>
@@ -57,17 +89,25 @@
 </template>
 
 <script>
-import { Register } from "@/models/users";
+import { Globals } from '@/models/api';
+import { Register } from '@/models/users';
+
 export default {
-    data: ()=> ({
-        data: {}
-    }),
-    methods: {
-        submit(){
-            Register(this.data);
-        }
-    }
-}
+  data: () => ({
+    data: {},
+    newUser: null,
+  }),
+  methods: {
+    async submit() {
+      try {
+        const m = await Register(this.data);
+        this.newUser = m;
+      } catch (error) {
+        Globals.error.push(error);
+      }
+    },
+  },
+};
 </script>
 
 <style>

@@ -31,7 +31,7 @@ app.use('/userRelationships', userRelationships);
 
 app.use(function (err, req, res, next){
     console.error(err.stack)
-    res.status(500).send({msg: err.message})
+    res.status(500).send({message: err.message})
 })
 
 

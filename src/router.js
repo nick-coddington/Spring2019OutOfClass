@@ -5,7 +5,7 @@ import Friends from './views/Friends.vue';
 import Workouts from './views/Workouts.vue';
 import Routines from './views/Routines.vue';
 import Exercises from './views/Exercises.vue';
-import Register from "./views/Register.vue";
+import Register from './views/Register.vue';
 
 Vue.use(Router);
 
