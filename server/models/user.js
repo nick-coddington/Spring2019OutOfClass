@@ -1,6 +1,9 @@
 const conn   = require('./mysql_connection');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const saltRounds = 10;
+const JWT_SECRET = process.env.JWT_SECRET || 'some long string..';
 
 const model = {
 
@@ -35,6 +38,9 @@ const model = {
             );
             return await model.get(data.insertId);
     },
+    getFromToken(token) {
+        return jwt.verify(token, JWT_SECRET);
+    },
     //authentication 
     async login(userName, password) {
         const data = await conn.query(`SELECT * FROM Fitness_Persons WHERE userName=?`, userName);
@@ -43,7 +49,8 @@ const model = {
         }
         const x = await bcrypt.compare(password, data[0].password);
         if(x) {
-            return data[0];
+            const user = {...data[0], password: null};
+            return {user, token: jwt.sign(user, JWT_SECRET) };
         } else {
             throw Error('Wrong Password')
         }
@@ -57,7 +64,7 @@ const model = {
         if(data[0].password == "" || await bcrypt.compare(oldPassword, data[0].password)) {
             const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
             await conn.query(`UPDATE Fitness_Persons SET password=? WHERE userName=?`, [hashedPassword, userName]);
-        return {status: "success", msg: "Password Successfully Changed"};
+        return {status: "success", message: "Password Successfully Changed"};
         } else {
             throw Error('Wrong Password')
         }

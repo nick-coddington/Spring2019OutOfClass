@@ -6,16 +6,30 @@ const exercises         = require('./controllers/exercises');
 const routines          = require('./controllers/routines');
 const contactMethods    = require('./controllers/contactMethods');
 const routineExercises  = require('./controllers/routineExercises');
-const userRelationships = require('./controllers/userRelationships')
+const userRelationships = require('./controllers/userRelationships');
+const userModel          =require('./models/user');
 
 const app     = express();
 const port    = 3000;
 
 app.use(function(req,res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
+
+app.use(function(req, res, next) {
+    try {
+      const token = (req.headers.authorization || " ").split(' ')[1]
+      req.user = userModel.getFromToken(token);
+    } catch (error) {
+        const openActions = ['POST/users', 'POST/users/login']
+        if (req.method != "OPTIONS" && !openActions.includes(req.method + req.path)) {
+            next(Error('Login Required'))
+        }
+    }
+    next();
+})
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());

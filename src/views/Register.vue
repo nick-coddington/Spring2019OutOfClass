@@ -5,7 +5,7 @@
       <div class="card-header">
         <ul class="nav nav-pills card-header-pills">
           <li class="nav-item">
-            <a class="nav-link active" href="">Register</a>
+            <a class="nav-link active" href="/Register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/Login">Login</a>
@@ -91,6 +91,7 @@
 <script>
 import { Globals } from '@/models/api';
 import { Register } from '@/models/users';
+import toastr from 'toastr';
 
 export default {
   data: () => ({
@@ -102,8 +103,10 @@ export default {
       try {
         const m = await Register(this.data);
         this.newUser = m;
+        toastr.sccuess("You've registered Successfully!");
       } catch (error) {
-        Globals.error.push(error);
+        Globals.errors.push(error)
+        toastr.error(error.message);
       }
     },
   },

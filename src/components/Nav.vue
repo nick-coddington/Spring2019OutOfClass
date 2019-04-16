@@ -49,11 +49,11 @@
                     </router-link>
                 </li>
             </ul>
-            <form class="form-inline" mt-2 mt-md-0 v-if="!user">
-                <a href="#" class="nav-link" @click.prevent="login">Login</a>
-                <a href="#" class="nav-link" @click.prevent="login">Sign-Up</a>
+            <form class="form-inline" mt-2 mt-md-0 v-if="!Globals.user">
+                <router-link to="/Login" class="nav-link">Login</router-link>
+                <router-link to="/Register" class="nav-link">Sign-Up</router-link>
             </form>
-            <span class="navbar-text" v-if="Globals.user"> Welcome {{Globals.user.name}}</span>
+            <span class="navbar-text" v-if="Globals.user"> Welcome {{Globals.user.firstName}}</span>
         </div>
     </nav>
 </template>
