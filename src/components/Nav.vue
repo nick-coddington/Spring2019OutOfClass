@@ -49,13 +49,27 @@
                     </router-link>
                 </li>
             </ul>
+            <form class="form-inline" mt-2 mt-md-0 v-if="!user">
+                <a href="#" class="nav-link" @click.prevent="login">Login</a>
+                <a href="#" class="nav-link" @click.prevent="login">Sign-Up</a>
+            </form>
+            <span class="navbar-text" v-if="Globals.user"> Welcome {{Globals.user.name}}</span>
         </div>
     </nav>
 </template>
 
 <script>
-export default {
+import { login, Globals } from '@/models/api';
 
+export default {
+  data: () => ({
+    Globals: Globals,
+  }),
+  methods: {
+    login() {
+      login();
+    },
+  },
 };
 </script>
 
