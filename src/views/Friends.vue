@@ -1,11 +1,20 @@
 <template>
 <div>
-    <h1 v-if="Globals.user"> {{Globals.user.name}}'s  Friends List</h1>
-    <ul>
-        <li v-for="friend in friends" :key="friend.id">
-            {{friend.firstName}} {{friend.lastName}}
-        </li>
-    </ul>
+    <h1 v-if="Globals.user"> {{Globals.user.firstName}}'s  Friends List</h1>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="friend in friends" :key="friend.id">
+          <th scope="row">{{friend.firstName}}</th>
+          <td>{{friend.lastName}}</td>
+        </tr>
+      </tbody>
+    </table>
 </div>
 </template>
 

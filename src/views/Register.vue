@@ -26,7 +26,8 @@
                     name="Username"
                     id="Username"
                     aria-describedby="helpUsername"
-                    placeholder="Username">
+                    placeholder="Username"
+                    required>
                   <small id="helpUsername"
                   class="form-text text-muted">Select a username</small>
                 </div>
@@ -37,7 +38,8 @@
                     name="FirstName"
                     id="FirstName"
                     aria-describedby="helpFirstName"
-                    placeholder="First Name">
+                    placeholder="First Name"
+                    required>
                   <small id="helpFirstName"
                   class="form-text text-muted">If you have a middle name enter here</small>
                 </div>
@@ -48,7 +50,8 @@
                     name="LastName"
                     id="LastName"
                     aria-describedby="helpLastName"
-                    placeholder="Last Name">
+                    placeholder="Last Name"
+                    required>
                   <small id="helpLastName" class="form-text text-muted">Sir Name</small>
                 </div>
                 <div class="form-group">
@@ -57,7 +60,8 @@
                     class="form-control"
                     name="Password"
                     id="Password"
-                    placeholder="Password">
+                    placeholder="Password"
+                    required>
                 </div>
                 <div class="form-group">
                   <label for="Birthday">Birthday</label>
@@ -66,7 +70,8 @@
                     name="Birthday"
                     id="Birthday"
                     aria-describedby="helpBirthday"
-                    placeholder="Your Birthday">
+                    placeholder="Your Birthday"
+                    required>
                   <small id="helpBirthday"
                   class="form-text text-muted">Please include the year</small>
                 </div>
@@ -103,7 +108,7 @@ export default {
       try {
         const m = await Register(this.data);
         this.newUser = m;
-        toastr.sccuess("You've registered Successfully!");
+        toastr.success("You've registered Successfully!");
       } catch (error) {
         Globals.errors.push(error);
         toastr.error(error.message);
