@@ -27,7 +27,8 @@
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link"
-                    to="/Friends">Friends
+                    to="/Friends"
+                    active-class="active">Friends
                     </router-link>
                 </li>
                 <li class="nav-item">

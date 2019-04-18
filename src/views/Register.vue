@@ -105,7 +105,7 @@ export default {
         this.newUser = m;
         toastr.sccuess("You've registered Successfully!");
       } catch (error) {
-        Globals.errors.push(error)
+        Globals.errors.push(error);
         toastr.error(error.message);
       }
     },
