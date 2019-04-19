@@ -18,18 +18,18 @@ app.use(function(req,res, next) {
     next();
 });
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     try {
       const token = (req.headers.authorization || " ").split(' ')[1]
       req.user = userModel.getFromToken(token);
     } catch (error) {
-        const openActions = ['POST/users', 'POST/users/login']
+        const openActions = ['POST/users', 'POST/users/login', 'GET/workouts/:id']
         if (req.method != "OPTIONS" && !openActions.includes(req.method + req.path)) {
             next(Error('Login Required'))
         }
     }
     next();
-})
+})*/
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
