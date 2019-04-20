@@ -16,6 +16,11 @@ app.get("/:id", (req, res, next) =>{
     .then(x => res.send(x))
     .catch(next)
 });
+app.post("/getID", async (req, res, next) => {
+    user.getId(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+})
 
  //delete an exercise
 app.get("/deleteExercise/:id", (req, res, next ) => {

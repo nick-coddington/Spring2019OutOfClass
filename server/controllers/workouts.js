@@ -10,7 +10,7 @@ app.get("/", async (req, res, next) =>{
 });
 
 //get a certain workout by person id and date
-app.get("/:id", (req, res, next) =>{
+app.post("/individual", (req, res, next) =>{
     user.get(req.body)
     .then(x => res.send(x))
     .catch(next)

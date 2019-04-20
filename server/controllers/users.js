@@ -9,8 +9,8 @@ app.get("/", async (req, res, next) =>{
     .catch(next)
 });
 
-app.get("/:id", (req, res, next) =>{
-    user.get(req.params.id)
+app.post("/userid", (req, res, next) =>{
+    user.get(req.body)
     .then(x => res.send(x))
     .catch(next)
 });

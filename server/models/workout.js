@@ -7,8 +7,8 @@ const model = {
     },
 
     //get a certain workout by person id
-    async get(id){
-        const data = await conn.query("SELECT * FROM Fitness_Workouts INNER JOIN Fitness_Exercises ON Fitness_Workouts.Fitness_Exercises_exercise_id=Fitness_Exercises.exercise_id WHERE Fitness_Persons_person_id=?", id);
+    async get(input){
+        const data = await conn.query("SELECT * FROM Fitness_Workouts INNER JOIN Fitness_Exercises ON Fitness_Workouts.Fitness_Exercises_exercise_id=Fitness_Exercises.exercise_id WHERE Fitness_Persons_person_id=?", input.Fitness_Persons_person_id);
         if(!data) {
             throw Error('No workouts have been added')
         }

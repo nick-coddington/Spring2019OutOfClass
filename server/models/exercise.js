@@ -15,6 +15,13 @@ const model = {
         }
         return data[0];
     },
+    async getId(input) {
+        const data = await conn.query("SELECT exercise_id FROM Fitness_Exercises WHERE exerciseName=?", input.exerciseName);
+        if(!data) {
+            throw Error('Exercise not added.')
+        }
+        return data;
+    },
 
     //delete an exercise
     async deleteExercise(id) {

@@ -12,8 +12,8 @@ const model = {
         return await conn.query("SELECT * FROM Fitness_Persons");
     },
     //select by user id
-    async get(id){
-        const data = await conn.query("SELECT * FROM Fitness_Persons WHERE person_id=?", id);
+    async get(input){
+        const data = await conn.query("SELECT person_id FROM Fitness_Persons WHERE userName=?", input.userName);
         if(!data) {
             throw Error("User not found")
         }

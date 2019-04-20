@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Friends from './views/Friends.vue';
 import Workouts from './views/Workouts.vue';
+import Addworkouts from './views/Addworkouts.vue';
 import Routines from './views/Routines.vue';
 import Exercises from './views/Exercises.vue';
 import Addexercises from './views/Addexercises.vue';
@@ -39,6 +40,11 @@ export default new Router({
       path: '/workouts',
       name: 'workouts',
       component: Workouts,
+    },
+    {
+      path: '/addworkouts',
+      name: 'addworkouts',
+      component: Addworkouts,
     },
     {
       path: '/routines',
