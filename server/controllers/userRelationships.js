@@ -10,15 +10,26 @@ app.get("/", (req, res, next) =>{
 });
 
 //gets all friends for a user
-app.post("/allfriends", (req, res, next) => {
-    user.get(req.body)
+app.post("/getfriends1", (req, res, next) => {
+    user.getfriends1(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+});
+
+app.post("/getfriends2", (req, res, next) => {
+    user.getfriends2(req.body)
     .then(x => res.send(x))
     .catch(next)
 });
 
 //gets all pending friend requests for a user (sender/receiver)
-app.post("/pendingRequests", (req, res, next) => {
-    user.getRequests(req.body)
+app.post("/getrequests1", (req, res, next) => {
+    user.getrequests1(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+});
+app.post("/getrequests2", (req, res, next) => {
+    user.getrequests2(req.body)
     .then(x => res.send(x))
     .catch(next)
 });

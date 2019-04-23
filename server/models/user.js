@@ -11,6 +11,11 @@ const model = {
     async getAll(){
         return await conn.query("SELECT * FROM Fitness_Persons");
     },
+
+    async getName(input){
+        const data = await conn.query("SELECT firstName, lastName FROM Fitness_Persons WHERE person_id=?", input.person_id);
+        return data;
+    },
     //select by user id
     async get(input){
         const data = await conn.query("SELECT person_id FROM Fitness_Persons WHERE userName=?", input.userName);

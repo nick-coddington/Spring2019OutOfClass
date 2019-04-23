@@ -39,4 +39,10 @@ app.post("/changePassword", (req, res, next) =>{
     .catch(next)
 });
 
+app.post("/getName", (req, res, next) =>{
+    user.getName(req.body)
+    .then(x=> res.send(x))
+    .catch(next)
+});
+
 module.exports = app;

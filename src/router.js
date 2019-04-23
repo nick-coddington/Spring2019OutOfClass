@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Friends from './views/Friends.vue';
+import Myfriends from './views/Myfriends.vue';
+import Pending from './views/Pending.vue';
 import Workouts from './views/Workouts.vue';
 import Addworkouts from './views/Addworkouts.vue';
 import Routines from './views/Routines.vue';
@@ -30,6 +32,16 @@ export default new Router({
       path: '/friends',
       name: 'friends',
       component: Friends,
+    },
+    {
+      path: '/myfriends',
+      name: 'myfriends',
+      component: Myfriends,
+    },
+    {
+      path: '/pending',
+      name: 'pending',
+      component: Pending,
     },
     {
       path: '/register',
