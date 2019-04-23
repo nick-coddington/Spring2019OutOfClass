@@ -9,6 +9,7 @@
           </li>
         </ul>
         <div>
+          <h1>Routine Information</h1>
             <table class="table table-light">
               <thead>
                 <tr>

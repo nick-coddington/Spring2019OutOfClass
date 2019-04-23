@@ -23,8 +23,8 @@ app.post("/getmyroutine", (req, res, next) => {
 })
 
 //delete a routine by name(cascades)
-app.get("/deleteroutine/:id", (req, res, next) => {
-    user.deleteRoutine(req.params.id)
+app.post("/deleteroutine/", (req, res, next) => {
+    user.deleteRoutine(req.body)
     .then(x => res.send(x))
     .catch(next)
 });

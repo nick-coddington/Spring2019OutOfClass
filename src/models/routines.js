@@ -24,3 +24,13 @@ export async function routineexercises(data) {
   const x = await api('routineExercises/routine', data);
   return x;
 }
+
+export async function addexercisetoroutine(data) {
+  const x = await api('routineExercises', data);
+  return x;
+}
+
+export async function deleteroutine(data) {
+  const x = await api('routines/deleteroutine', data);
+  return x;
+}

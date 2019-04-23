@@ -29,6 +29,7 @@
                   <td>{{routine.routineDescription}}</td>
                   <td><button @click="view(routine.routine_id)" class="btn btn-primary">View</button></td>
                   <td><button @click="edit(routine.routine_id)" class="btn btn-primary">Edit</button></td>
+                  <td><button @click="deleteroutine(routine.routine_id)" class="btn btn-primary">Delete</button></td>
                 </tr>
               </tbody>
             </table>
@@ -41,7 +42,8 @@
 
 <script>
 import { Globals } from '@/models/api';
-import { MyRoutines, GetMyRoutine } from '@/models/routines';
+import { MyRoutines, deleteroutine } from '@/models/routines';
+import toastr from 'toastr';
 
 export default {
   data: () => ({
@@ -53,12 +55,23 @@ export default {
     this.routines = await MyRoutines({ Fitness_Persons_person_id: data });
   },
   methods: {
-    async view(data) {
+    view(data) {
       Globals.routine = data;
       this.$router.push('/viewroutines');
     },
-    edit() {
+    edit(data) {
+      Globals.routine = data;
       this.$router.push('/editroutines');
+    },
+    async deleteroutine(data) {
+      Globals.routine = data;
+      try {
+        const m = await deleteroutine({ routine_id: data });
+        toastr.success("You've Successfully Deleted a Routine.");
+      } catch (error) {
+        Globals.errors.push(error);
+        toastr.error(error.message);
+      }
     },
   },
 };

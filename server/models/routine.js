@@ -18,8 +18,8 @@ const model = {
         return data;
     },
     //delete a routine by id (cascades)
-    async deleteRoutine(id){
-        return await conn.query("DELETE FROM Fitness_Routines WHERE routine_id=?", id);
+    async deleteRoutine(input){
+        return await conn.query("DELETE FROM Fitness_Routines WHERE routine_id=?", input.routine_id);
     },
     async getInfo(id) {
         const data = await conn.query("SELECT * FROM Fitness_Routines WHERE routine_id=?",id);
