@@ -8,7 +8,7 @@ const model = {
 
     //this gets us the routine with the workouts and the default reps/sets
     async get(input){
-        const data = await conn.query("SELECT DISTINCT routineName,exerciseName,defaultReps,defaultSets FROM Fitness_Routines join Fitness_RoutineExercises join Fitness_Exercises where Fitness_Routines_routine_id=?", input.Fitness_Routines_routine_id);
+        const data = await conn.query("SELECT routineName,exerciseName,defaultSets,defaultReps FROM Fitness_Routines JOIN Fitness_RoutineExercises ON Fitness_Routines.routine_id = Fitness_RoutineExercises.Fitness_Routines_routine_id JOIN Fitness_Exercises ON Fitness_RoutineExercises.Fitness_Exercises_exercise_id = Fitness_Exercises.exercise_id WHERE routine_id=?", input.routine_id);
         if(!data){
             throw Error('Routine not found')
         }

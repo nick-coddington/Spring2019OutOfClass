@@ -9,6 +9,11 @@ import Exercises from './views/Exercises.vue';
 import Addexercises from './views/Addexercises.vue';
 import Register from './views/Register.vue';
 import Login from './views/Login.vue';
+import Addroutines from './views/Addroutines.vue';
+import Myroutines from './views/Myroutines.vue';
+import Editroutines from './views/Editroutines.vue';
+import Viewroutines from './views/Viewroutines.vue';
+
 
 Vue.use(Router);
 
@@ -50,6 +55,26 @@ export default new Router({
       path: '/routines',
       name: 'routines',
       component: Routines,
+    },
+    {
+      path: '/editroutines',
+      name: 'editroutines',
+      component: Editroutines,
+    },
+    {
+      path: '/viewroutines',
+      name: 'viewroutines',
+      component: Viewroutines,
+    },
+    {
+      path: '/addroutines',
+      name: 'addroutines',
+      component: Addroutines,
+    },
+    {
+      path: '/myroutines',
+      name: 'myroutines',
+      component: Myroutines,
     },
     {
       path: '/exercises',

@@ -10,11 +10,17 @@ app.get("/", async (req, res, next) =>{
 });
 
 //get a specific routine by id
-app.get("/:id", (req, res, next) =>{
-    user.get(req.params.id)
+app.post("/myroutines", (req, res, next) =>{
+    user.get(req.body)
     .then(x => res.send(x))
     .catch(next)
 });
+
+app.post("/getmyroutine", (req, res, next) => {
+    user.routineId(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+})
 
 //delete a routine by name(cascades)
 app.get("/deleteroutine/:id", (req, res, next) => {

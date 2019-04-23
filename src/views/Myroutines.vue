@@ -5,17 +5,17 @@
         <div class="card-header text-white bg-dark">
           <ul class="nav nav-pills card-header-pills">
           <li class="nav-item">
-            <router-link class="nav-link active" to="/Routines">Routines</router-link>
+            <router-link class="nav-link" to="/Routines">Routines</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/Addroutines">Add a Routine</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/Myroutines">My Routines</router-link>
+            <router-link class="nav-link active" to="/Myroutines">My Routines</router-link>
           </li>
         </ul>
         <div>
-            <h1> Routine List:</h1>
+            <h1>{{Globals.user.firstName}}'s Routine List:</h1>
             <table class="table table-light">
               <thead>
                 <tr>
@@ -28,6 +28,7 @@
                   <th scope="row">{{routine.routineName}}</th>
                   <td>{{routine.routineDescription}}</td>
                   <td><button @click="view(routine.routine_id)" class="btn btn-primary">View</button></td>
+                  <td><button @click="edit(routine.routine_id)" class="btn btn-primary">Edit</button></td>
                 </tr>
               </tbody>
             </table>
@@ -40,7 +41,7 @@
 
 <script>
 import { Globals } from '@/models/api';
-import { GetRoutines } from '@/models/routines';
+import { MyRoutines, GetMyRoutine } from '@/models/routines';
 
 export default {
   data: () => ({
@@ -48,12 +49,16 @@ export default {
     routines: [],
   }),
   async mounted() {
-    this.routines = await GetRoutines();
+    let data = Globals.user.person_id;
+    this.routines = await MyRoutines({ Fitness_Persons_person_id: data });
   },
   methods: {
     async view(data) {
       Globals.routine = data;
       this.$router.push('/viewroutines');
+    },
+    edit() {
+      this.$router.push('/editroutines');
     },
   },
 };
