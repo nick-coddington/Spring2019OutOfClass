@@ -57,8 +57,8 @@ export default {
   }),
   async mounted() {
     let data = Globals.user.person_id;
-    this.requests1 = await getrequests1({ user_id_1: data, user_id_2: data });
-    this.requests2 = await getrequests2({ user_id_1: data, user_id_2: data });
+    this.requests1 = await getrequests1({ user_id_1: data, user_id_2: data, userName: Globals.user.userName });
+    this.requests2 = await getrequests2({ user_id_1: data, user_id_2: data, userName: Globals.user.userName });
   },
   methods: {
     async accept(data) {

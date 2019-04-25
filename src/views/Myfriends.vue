@@ -59,8 +59,8 @@ export default {
   }),
   async mounted() {
     let data = Globals.user.person_id;
-    this.friends1 = await getFriends1({ user_id_1: data, user_id_2: data });
-    this.friends2 = await getFriends2({ user_id_1: data, user_id_2: data });
+    this.friends1 = await getFriends1({ user_id_1: data, user_id_2: data, userName: Globals.user.userName });
+    this.friends2 = await getFriends2({ user_id_1: data, user_id_2: data, userName: Globals.user.userName });
   },
 };
 </script>

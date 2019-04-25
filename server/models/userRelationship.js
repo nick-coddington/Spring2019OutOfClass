@@ -8,14 +8,14 @@ const model = {
     
     //gets all friends for a user
     async getfriends1(input){
-        const data = await conn.query("SELECT user_id_1,user_id_2, firstName,lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_1 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND status='Friends'", [input.user_id_1,input.user_id_2]);
+        const data = await conn.query("SELECT user_id_1,user_id_2, firstName,lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_1 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND (status='Friends'AND userName!=?)", [input.user_id_1,input.user_id_2,input.userName]);
         if(!data) {
             throw Error('There is no friends to be displayed')
         }
         return data;
     },
     async getfriends2(input){
-        const data = await conn.query("SELECT user_id_1,user_id_2, firstName,lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_2 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND status='Friends'", [input.user_id_1,input.user_id_2]);
+        const data = await conn.query("SELECT user_id_1,user_id_2, firstName,lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_2 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND (status='Friends'AND userName!=?)", [input.user_id_1,input.user_id_2, input.userName]);
         if(!data) {
             throw Error('There is no friends to be displayed')
         }
@@ -24,14 +24,14 @@ const model = {
 
     //gets all pending friend requests for a user (sender/receiver)
     async getrequests1(input){
-        const data = await conn.query("SELECT user_id_1, user_id_2, firstName, lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_1 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND status='Pending Friend Request'", [input.user_id_1,input.user_id_2]);
+        const data = await conn.query("SELECT user_id_1, user_id_2, firstName, lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_1 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND (status='Pending Friend Request'AND userName!=?)", [input.user_id_1,input.user_id_2,input.userName]);
         if(!data) {
             throw Error('There are 0 pending requests.')
         }
         return data;
     },
     async getrequests2(input){
-        const data = await conn.query("SELECT user_id_1, user_id_2, firstName, lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_2 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND status='Pending Friend Request'", [input.user_id_1,input.user_id_2]);
+        const data = await conn.query("SELECT user_id_1, user_id_2, firstName, lastName FROM Fitness_userRelationships INNER JOIN Fitness_Persons ON Fitness_userRelationships.user_id_2 = Fitness_Persons.person_id WHERE (user_id_1=? OR user_id_2=?) AND (status='Pending Friend Request'AND userName!=?)", [input.user_id_1,input.user_id_2,input.userName]);
         if(!data) {
             throw Error('There are 0 pending requests.')
         }
@@ -62,7 +62,8 @@ const model = {
     ///add a friend with a status of pending request the lower id number will always be first to avoid duplicates
     async add(input){
         const x = await conn.query("SELECT * FROM Fitness_userRelationships WHERE user_id_1=? AND user_id_2=?", [input.user_id_1, input.user_id_2]);
-        if(!x) {        
+        console.log(x)
+        if(!x[0]) {        
             const data = await conn.query("INSERT INTO Fitness_userRelationships (created_at,user_id_1,user_id_2,status) VALUES (?)",
             [[new Date(),input.user_id_1,input.user_id_2,"Pending Friend Request"]]);
             return data;
