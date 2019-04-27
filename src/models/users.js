@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api, Globals } from './api';
 
 export async function GetUsers() {
   const x = await api('users');
@@ -7,6 +7,8 @@ export async function GetUsers() {
 
 export async function Login(data) {
   const x = await api('users/login', data);
+  Globals.user = x.user;
+  Globals.token = x.token;
   return x;
 }
 

@@ -60,16 +60,13 @@
 </template>
 
 <script>
-import { login, Globals } from '@/models/api';
+import { Globals } from '@/models/api';
 
 export default {
   data: () => ({
     Globals: Globals,
   }),
   methods: {
-    login() {
-      login();
-    },
   },
 };
 </script>

@@ -15,11 +15,12 @@ import Addroutines from './views/Addroutines.vue';
 import Myroutines from './views/Myroutines.vue';
 import Editroutines from './views/Editroutines.vue';
 import Viewroutines from './views/Viewroutines.vue';
+import { Globals } from '@/models/api';
 
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -108,3 +109,14 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const publicRoutes = ['home', 'login', 'register', 'about'];
+  if (!publicRoutes.includes(to.name) && !Globals.user) {
+    Globals.redirectRoute= {name: to.name, path: to.path, params: to.params, query: to.query, hash: to.hash}
+    return next('login');
+  }
+  next();
+});
+
+export default router;
