@@ -18,6 +18,8 @@ app.use(function(req,res, next) {
     next();
 });
 
+app.use(express.static(path.join(__dirname, "../dist")));
+
 app.use(function(req, res, next) {
     try {
       const token = (req.headers.authorization || " ").split(' ')[1]
@@ -41,6 +43,8 @@ app.use('/routines', routines);
 app.use('/contactMethods', contactMethods);
 app.use('/routineExercises',routineExercises);
 app.use('/userRelationships', userRelationships);
+
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')));;
 
 app.use(function (err, req, res, next){
     console.error(err.stack)

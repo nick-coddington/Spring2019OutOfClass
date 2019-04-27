@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <router-link class="navbar-brand" to="/" >
-            <img alt="Vue logo" src="../assets/logo.png" height="30">
+            <img alt="Vue logo" src="../assets/tigerlogo.png" height="30">
         </router-link>
         <button class="navbar-toggler"
             type="button"
