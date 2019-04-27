@@ -22,7 +22,7 @@ export default {
     Globals: Globals,
   }),
   components: {
-    Nav,
+    Nav
   },
 };
 </script>
