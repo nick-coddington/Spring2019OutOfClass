@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import App from './App.vue';
-import vSelect from 'vue-select'
 import router from './router';
 import './assets/main.scss';
 

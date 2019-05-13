@@ -13,8 +13,8 @@ const model = {
     },
 
     async search(input){
-        let name = input.firstName + '%';
-        return await conn.query("SELECT firstName, lastName FROM Fitness_Persons WHERE firstName LIKE ?", name);
+        let fname = input.firstName + '%';
+        return await conn.query("SELECT firstName, lastName FROM Fitness_Persons WHERE firstName LIKE ?", fname);
     },
 
     async getName(input){

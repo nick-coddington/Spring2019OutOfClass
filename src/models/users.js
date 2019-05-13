@@ -56,3 +56,8 @@ export async function accept(data) {
   const x = await api('userRelationships/friends', data);
   return x;
 }
+
+export async function search(data) {
+  const x = await api('users/search', data);
+  return x;
+}
