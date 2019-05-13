@@ -15,6 +15,12 @@ app.post("/userid", (req, res, next) =>{
     .catch(next)
 });
 
+app.post("/search", (req, res, next) => {
+    user.search(req.body)
+    .then(x => res.send(x))
+    .catch(next)
+});
+
 app.get("/deleteuser/:id", (req, res, next) =>{
     user.deleteById(req.params.id)
     .then(x => res.send(x))

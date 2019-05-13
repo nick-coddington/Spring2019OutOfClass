@@ -10,16 +10,20 @@
             <p class="lead">
               <a href="/About" class="btn btn-lg btn-dark">Learn more</a>
             </p>
+            <h2> See who might be using the app already!</h2>
+            <vSelect></vSelect>
             <img alt="Tiger Logo" src="../assets/tigerden.jpeg">
           </div>
-        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import Profile from '@/components/Profile.vue';
 import { Globals } from '@/models/api';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
 
 export default {
   data: () => ({

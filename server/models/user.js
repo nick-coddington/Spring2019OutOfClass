@@ -12,6 +12,11 @@ const model = {
         return await conn.query("SELECT * FROM Fitness_Persons");
     },
 
+    async search(input){
+        let name = input.firstName + '%';
+        return await conn.query("SELECT firstName, lastName FROM Fitness_Persons WHERE firstName LIKE ?", name);
+    },
+
     async getName(input){
         const data = await conn.query("SELECT firstName, lastName FROM Fitness_Persons WHERE person_id=?", input.person_id);
         return data;

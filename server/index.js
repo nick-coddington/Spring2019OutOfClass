@@ -20,7 +20,7 @@ app.use(function(req,res, next) {
 
 app.use(express.static(path.join(__dirname, "../dist")));
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     try {
       const token = (req.headers.authorization || " ").split(' ')[1]
       req.user = userModel.getFromToken(token);
@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
         }
     }
     next();
-})
+})*/
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
